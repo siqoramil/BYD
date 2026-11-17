@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#08090b" />
+    <meta name="description" content="Автосалон BYD — электромобили, 3D‑просмотр и конфигуратор, запись на тест‑драйв и кредитный калькулятор." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <script>
+      // apply the saved theme before first paint (see features/toggle-theme)
+      try {
+        if (localStorage.getItem('byd-theme') === 'light') document.documentElement.dataset.theme = 'light'
+      } catch {}
+    </script>
+    <style>
+      /* Full-screen start-up spinner — inline, so it shows before the JS bundle arrives (removed in src/main.tsx) */
+      #preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: grid;
+        place-items: center;
+        background: #08090b;
+        color: #fff;
+        transition: opacity 0.5s ease, visibility 0.5s;
+      }
+      html[data-theme='light'] #preloader { background: #f3f4f6; color: #0e1013; }
+      #preloader.is-hidden { opacity: 0; visibility: hidden; }
+      #preloader svg { width: 11rem; overflow: visible; }
+      #preloader .ring { stroke: currentColor; opacity: 0.15; }
+      #preloader .sweep {
+        stroke: #e3263b;
+        stroke-dasharray: 28 72;
+        filter: drop-shadow(0 0 6px #e3263b);
+        animation: preloader-sweep 1.4s linear infinite;
+      }
+      #preloader text {
+        fill: currentColor;
+        font: 700 30px 'Unbounded', 'Inter', system-ui, sans-serif;
+        letter-spacing: 0.16em;
+        animation: preloader-pulse 1.6s ease-in-out infinite;
+      }
+      @keyframes preloader-pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+      @keyframes preloader-sweep { to { stroke-dashoffset: -100; } }
+      @media (prefers-reduced-motion: reduce) {
+        #preloader .sweep, #preloader text { animation: none; }
+      }
+    </style>
+    <title>BYD Showroom — Build Your Dreams</title>
+  </head>
+  <body>
+    <div id="preloader" role="status" aria-label="Загрузка">
+      <svg viewBox="0 0 160 96" fill="none" aria-hidden="true">
+        <path class="ring" d="M80 8 A72 40 0 1 1 79.99 8 Z" stroke-width="2.5" />
+        <path class="sweep" d="M80 8 A72 40 0 1 1 79.99 8 Z" pathLength="100" stroke-width="2.5" stroke-linecap="round" />
+        <text x="82" y="59" text-anchor="middle">BYD</text>
+      </svg>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
