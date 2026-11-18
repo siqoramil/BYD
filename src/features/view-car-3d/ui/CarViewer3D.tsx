@@ -51,7 +51,7 @@ export default function CarViewer3D({ model, colorHex }: CarViewer3DProps) {
   const hostRef = useRef<HTMLDivElement>(null)
   const paintRef = useRef<THREE.MeshStandardMaterial[]>([])
   const [status, setStatus] = useState<Status>('loading')
-  const [progress, setProgress] = useState<number | null>(null)
+  const [progress, setProgress] = useState<number | null>(0)
 
   useEffect(() => {
     const host = hostRef.current
@@ -172,7 +172,11 @@ export default function CarViewer3D({ model, colorHex }: CarViewer3DProps) {
         controls.update()
         setStatus('ready')
       },
-      (e) => setProgress(e.lengthComputable && e.total > 0 ? e.loaded / e.total : null),
+      (e) => {
+        const total = model.bytes ?? (e.lengthComputable ? e.total : 0)
+        // the download is ~96% of the wait — the rest is parsing and GPU upload
+        setProgress(total > 0 ? Math.min(e.loaded / total, 1) * 0.96 : null)
+      },
       () => !disposed && setStatus('error'),
     )
 

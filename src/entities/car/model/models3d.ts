@@ -7,6 +7,8 @@
  */
 export interface CarModel3D {
   url: string
+  /** file size in bytes — the total for the loading percentage (Content-Length is unreliable behind gzip / chunked responses) */
+  bytes?: number
   /** names of the body-paint materials */
   paint: string[]
   /** rotation around the vertical axis (radians) so that the car faces the camera */
@@ -19,6 +21,7 @@ export interface CarModel3D {
 export const CAR_MODELS: Record<string, CarModel3D | undefined> = {
   seal: {
     url: '/models/byd-seal.glb',
+    bytes: 22_263_008,
     paint: ['Car_Paint'],
     author: 'Ddiaz Design',
     license: 'CC BY-NC-SA 4.0',
@@ -27,6 +30,7 @@ export const CAR_MODELS: Record<string, CarModel3D | undefined> = {
   // Song Plus is sold as "Seal U" outside China — same car
   'song-plus': {
     url: '/models/2024_byd_seal_u.glb',
+    bytes: 23_411_768,
     paint: ['CarPaint'],
     author: 'Ddiaz Design',
     license: 'CC BY-NC-SA 4.0',
@@ -35,6 +39,7 @@ export const CAR_MODELS: Record<string, CarModel3D | undefined> = {
   // Seal 5 DM-i is sold as "Chazor" in Uzbekistan (Destroyer 05 / King elsewhere)
   chazor: {
     url: '/models/2025_byd_seal_5_dm-i_chazor_king_destroyer_05.glb',
+    bytes: 25_684_980,
     paint: ['CarPaint'],
     author: 'Ddiaz Design',
     license: 'CC BY-NC-SA 4.0',
@@ -42,6 +47,7 @@ export const CAR_MODELS: Record<string, CarModel3D | undefined> = {
   },
   'song-plus-dmi': {
     url: '/models/2024_byd_seal_u_dm-i.glb',
+    bytes: 22_476_348,
     paint: ['CarPaint'],
     author: 'Ddiaz Design',
     license: 'CC BY-NC-SA 4.0',
@@ -49,6 +55,7 @@ export const CAR_MODELS: Record<string, CarModel3D | undefined> = {
   },
   'atto-2': {
     url: '/models/2024_byd_atto_2.glb',
+    bytes: 20_888_152,
     paint: ['Atto2phong1SG1'],
     author: 'Ddiaz Design',
     license: 'CC BY-NC-SA 4.0',
@@ -56,6 +63,7 @@ export const CAR_MODELS: Record<string, CarModel3D | undefined> = {
   },
   han: {
     url: '/models/2023_byd_han_dm-p.glb',
+    bytes: 22_849_664,
     paint: ['BYD_CARP'],
     author: 'Ddiaz Design',
     license: 'CC BY-NC-SA 4.0',
@@ -63,6 +71,7 @@ export const CAR_MODELS: Record<string, CarModel3D | undefined> = {
   },
   'sealion-7': {
     url: '/models/2024_byd_sealion_7.glb',
+    bytes: 27_079_616,
     paint: ['carpaint'],
     author: 'Ddiaz Design',
     license: 'CC BY-NC-SA 4.0',
@@ -70,6 +79,7 @@ export const CAR_MODELS: Record<string, CarModel3D | undefined> = {
   },
   seagull: {
     url: '/models/2024_byd_seagull.glb',
+    bytes: 15_999_472,
     paint: ['modelCP'],
     author: 'Ddiaz Design',
     license: 'CC BY-NC-SA 4.0',
@@ -77,6 +87,7 @@ export const CAR_MODELS: Record<string, CarModel3D | undefined> = {
   },
   'yangwang-u9': {
     url: '/models/2024_byd_yangwang_u9.glb',
+    bytes: 5_557_700,
     paint: ['MAT_BYD_YangWang_U9_Carpaint'],
     author: 'Ddiaz Design',
     license: 'CC BY-NC-SA 4.0',
@@ -84,6 +95,7 @@ export const CAR_MODELS: Record<string, CarModel3D | undefined> = {
   },
   tang: {
     url: '/models/2024_byd_tang.glb',
+    bytes: 25_860_536,
     paint: ['CarPaint'],
     author: 'Ddiaz Design',
     license: 'CC BY-NC-SA 4.0',

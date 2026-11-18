@@ -112,7 +112,7 @@ function Viewer({
             <Suspense
               fallback={
                 <div className="absolute inset-0 grid place-items-center">
-                  <BydLoader label="Загружаем 3D‑модель" />
+                  <BydLoader progress={0} label="Загружаем 3D‑модель" />
                 </div>
               }
             >

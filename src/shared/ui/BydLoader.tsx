@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { cn } from '@/shared/lib'
 
 interface BydLoaderProps {
@@ -14,6 +15,22 @@ const OVAL = 'M80 8 A72 40 0 1 1 79.99 8 Z'
 export function BydLoader({ progress = null, label, className }: BydLoaderProps) {
   const known = progress !== null
   const pct = known ? Math.round(Math.min(Math.max(progress, 0), 1) * 100) : 0
+
+  // the shown number counts up to the real one, so it ticks instead of jumping between network chunks
+  const [shown, setShown] = useState(0)
+  const shownRef = useRef(0)
+  useEffect(() => {
+    let raf = 0
+    const step = () => {
+      const gap = pct - shownRef.current
+      if (gap === 0) return
+      shownRef.current += Math.sign(gap) * Math.max(1, Math.round(Math.abs(gap) * 0.12))
+      setShown(shownRef.current)
+      raf = requestAnimationFrame(step)
+    }
+    raf = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(raf)
+  }, [pct])
 
   return (
     <div
@@ -34,10 +51,10 @@ export function BydLoader({ progress = null, label, className }: BydLoaderProps)
             pathLength={100}
             strokeWidth="2.5"
             strokeLinecap="round"
-            className={cn('stroke-accent', known ? 'transition-[stroke-dashoffset] duration-300 ease-out' : 'byd-loader-sweep')}
+            className={cn('stroke-accent', !known && 'byd-loader-sweep')}
             style={
               known
-                ? { strokeDasharray: 100, strokeDashoffset: 100 - pct, filter: 'drop-shadow(0 0 6px var(--color-accent))' }
+                ? { strokeDasharray: 100, strokeDashoffset: 100 - shown, filter: 'drop-shadow(0 0 6px var(--color-accent))' }
                 : { strokeDasharray: '28 72', filter: 'drop-shadow(0 0 6px var(--color-accent))' }
             }
           />
@@ -57,7 +74,7 @@ export function BydLoader({ progress = null, label, className }: BydLoaderProps)
         {known && (
           <>
             {label && ' · '}
-            <span className="font-display font-semibold text-fg tabular-nums">{pct}%</span>
+            <span className="font-display font-semibold text-fg tabular-nums">{shown}%</span>
           </>
         )}
       </p>
