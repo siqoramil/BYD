@@ -68,3 +68,15 @@ export const Cube = (p: SVGProps<SVGSVGElement>) => (
 export const Rotate = (p: SVGProps<SVGSVGElement>) => (
   <svg {...base(p)}><path d="M21 12a9 9 0 1 1-3-6.7L21 8" /><path d="M21 3v5h-5" /></svg>
 )
+export const ChevronDown = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...base(p)}><path d="m6 9 6 6 6-6" /></svg>
+)
+export const ChevronLeft = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...base(p)}><path d="m15 6-6 6 6 6" /></svg>
+)
+export const ChevronRight = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...base(p)}><path d="m9 6 6 6-6 6" /></svg>
+)
+export const Calendar = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...base(p)}><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" /><path d="M3.5 10h17M8 3v4M16 3v4" /></svg>
+)

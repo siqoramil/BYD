@@ -1,13 +1,14 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { CARS, useCarStore } from '@/entities/car'
-import { Button, Icon } from '@/shared/ui'
-import { cn } from '@/shared/lib'
+import { Button, DatePicker, Icon, Select } from '@/shared/ui'
+import { cn, toISODate } from '@/shared/lib'
 import { useTestDriveStore } from '../model/store'
 import { formatUzPhone, isValidUzPhone } from '../lib/phone'
 
 const TIMES = ['10:00', '12:00', '14:00', '16:00', '18:00']
-const today = () => new Date().toISOString().slice(0, 10)
+const CAR_OPTIONS = CARS.map((c) => ({ value: c.id, label: `BYD ${c.name}` }))
+const today = () => toISODate(new Date())
 
 export function TestDriveForm({ onDone }: { onDone?: () => void }) {
   const presetCarId = useTestDriveStore((s) => s.presetCarId)
@@ -71,16 +72,10 @@ export function TestDriveForm({ onDone }: { onDone?: () => void }) {
             />
           </Field>
           <Field label="Модель" className="sm:col-span-2">
-            <select className="input" value={carId} onChange={(e) => setCarId(e.target.value)}>
-              {CARS.map((c) => (
-                <option key={c.id} value={c.id}>
-                  BYD {c.name}
-                </option>
-              ))}
-            </select>
+            <Select value={carId} options={CAR_OPTIONS} onChange={setCarId} />
           </Field>
           <Field label="Дата">
-            <input className="input" type="date" min={today()} value={date} onChange={(e) => setDate(e.target.value)} />
+            <DatePicker value={date} min={today()} onChange={setDate} />
           </Field>
           <Field label="Время">
             <div className="flex flex-wrap gap-1.5">

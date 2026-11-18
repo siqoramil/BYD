@@ -79,9 +79,6 @@
   .input {
     @apply h-12 w-full rounded-xl border border-fg/10 bg-fg/4 px-4 text-fg transition-colors outline-none placeholder:text-fg/30 focus:border-fg/50;
   }
-  select.input option { @apply bg-ink-900; }
-  input[type='date'].input::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.6; }
-  html[data-theme='light'] input[type='date'].input::-webkit-calendar-picker-indicator { filter: none; }
 
   .range {
     @apply h-1.5 w-full cursor-pointer appearance-none rounded-full;
